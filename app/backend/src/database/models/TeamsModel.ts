@@ -1,7 +1,5 @@
 import { Model, DataTypes, CreationOptional } from 'sequelize';
 
-// import ITeam from '../../Interfaces/teamInterfaces';
-
 import db from '.';
 
 class Teams extends Model {
