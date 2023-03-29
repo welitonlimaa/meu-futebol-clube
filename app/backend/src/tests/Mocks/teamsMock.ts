@@ -13,4 +13,13 @@ const teamsMock = [
     }
 ];
 
+const teamMock = {
+    id: 5,
+    teamName: "Cruzeiro"
+}
+
+export {
+    teamMock
+};
+
 export default teamsMock;

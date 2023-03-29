@@ -11,11 +11,11 @@ import Teams from '../database/models/TeamsModel';
 
 // import UserController from '../controllers/UserControler';
 
-import { Response } from 'superagent';
+// import { Response } from 'superagent';
 
-import ITeam from '../Interfaces/teamInterfaces';
+// import ITeam from '../Interfaces/teamInterfaces';
 
-import teamsMock from './Mocks/teamsMock';
+import teamsMock, { teamMock } from './Mocks/teamsMock';
 
 chai.use(chaiHttp);
 
@@ -26,7 +26,7 @@ describe('Teste de integração route /Teams', () => {
 		sinon.restore();
 	})
 
-	it('route /teams return status 200', async () => {
+	it('route /teams return status 200 e um array de times', async () => {
 		sinon
 			.stub(Teams, "findAll")
 			.resolves(teamsMock as Teams[]);
@@ -35,6 +35,17 @@ describe('Teste de integração route /Teams', () => {
 
 		expect(httpResponse.status).to.be.equal(200);
 		expect(httpResponse.body).to.be.deep.equal(teamsMock);
+	});
+
+	it('route /teams/id return status 200 e um time pelo id', async () => {
+		sinon
+			.stub(Teams, "findByPk")
+			.resolves(teamMock as Teams);
+
+		const httpResponse = await chai.request(app).get(`/teams/id`);
+
+		expect(httpResponse.status).to.be.equal(200);
+		expect(httpResponse.body).to.be.deep.equal(teamMock);
 	});
 
 	// it('userServices return teams', async () => {

@@ -16,4 +16,18 @@ export default class TeamController {
       next(error);
     }
   };
+
+  public getById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { id } = req.params;
+      const { message } = await this.teamService.getById(Number(id));
+      res.status(200).json(message);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
