@@ -8,17 +8,18 @@ export default class TeamService {
   constructor(private userModel = Users) { }
 
   public async login({ email, password }: ILogin) {
+    const invalid = 'Invalid email or password';
     if (!UserValidation.valideUser(email, password)) {
-      return { type: 400, message: 'All fields must be filled' };
+      return { type: 401, message: { message: invalid } };
     }
     const user = await this.userModel.findOne({ where: { email } });
     if (!user) {
-      return { type: 401, message: 'email invalid' };
+      return { type: 401, message: { message: invalid } };
     }
     const compare = bcrypt.compareSync(password, user.password);
 
     if (!compare) {
-      return { type: 401, message: 'password invalid' };
+      return { type: 401, message: { message: invalid } };
     }
     const token = createToken(user);
 
