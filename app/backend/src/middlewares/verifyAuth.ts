@@ -1,22 +1,23 @@
-// import { NextFunction, Request, Response } from 'express';
-// import { verifyJWT } from '../utils/JWTgenerator';
+import { NextFunction, Request, Response } from 'express';
+import { verifyToken } from '../utils/JWTgenerator';
 
-// import IUser from '../interfaces/userInterfaces';
+export default class verifyAuth {
+  public static verifyToken(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { authorization } = req.headers;
 
-// export default class AuthValidation {
-//   constructor() {}
-//   public verifyToken(
-//     req: Request,
-//     res: Response,
-//     next: NextFunction,
-//   ) {
-//     const { authorization } = req.headers;
+      if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
-//     if (!authorization) return res.status(401).json({ error: 'Token not Found' });
+      const decoded = verifyToken(authorization);
+      req.body.user = decoded;
 
-//     const decoded = verifyJWT(authorization);
-//     req.user = decoded as Omit<IUser, 'password' | 'email'>;
-
-//     return next();
-//   }
-// }
+      return next();
+    } catch (error) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
+  }
+}

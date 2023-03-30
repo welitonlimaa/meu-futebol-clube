@@ -21,6 +21,7 @@ export default class TeamService {
     if (!compare) {
       return { type: 401, message: { message: invalid } };
     }
+
     const token = createToken(user);
 
     return { type: 200, message: { token } };

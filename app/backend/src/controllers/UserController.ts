@@ -17,4 +17,18 @@ export default class UserController {
       next(error);
     }
   };
+
+  public loginRole = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { user } = req.body;
+      const { role } = user.data;
+      res.status(200).json({ role });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
