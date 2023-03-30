@@ -7,7 +7,7 @@ import { app } from '../app';
 
 import Users from '../database/models/UsersModel';
 
-import { createToken } from '../utils/JWTgenerator';
+import * as JWT from '../utils/JWTgenerator';
 
 // import usersService from '../services/usersService';
 
@@ -17,7 +17,13 @@ import { createToken } from '../utils/JWTgenerator';
 
 // import ITeam from '../Interfaces/teamInterfaces';
 
-import loginReqMock, { tokenMock, dataUserMock } from './Mocks/usersMock';
+import loginReqMock, {
+    tokenMock,
+    dataUserMock,
+    loginWithOutEmailMock,
+    loginInvalidEmailMock,
+    loginInvalidPasswordMock
+} from './Mocks/usersMock';
 
 chai.use(chaiHttp);
 
@@ -32,12 +38,51 @@ describe('Teste de integração User', () => {
         sinon
             .stub(Users, "findOne")
             .resolves(dataUserMock as Users);
-        // sinon.stub(createToken).returns(tokenMock);
+        sinon.stub(JWT, "createToken").returns(tokenMock);
         const httpResponse = await chai.request(app)
             .post(`/login`)
             .send(loginReqMock);
 
         expect(httpResponse.status).to.be.equal(200);
-        // expect(httpResponse.body).to.be.deep.equal(loginReqMock);
+        expect(httpResponse.body).to.be.deep.equal({ token: tokenMock });
+    });
+
+    it('route /login return status 400 data sem email', async () => {
+        sinon
+            .stub(Users, "findOne")
+            .resolves(dataUserMock as Users);
+        sinon.stub(JWT, "createToken").returns(tokenMock);
+        const httpResponse = await chai.request(app)
+            .post(`/login`)
+            .send(loginWithOutEmailMock.req);
+
+        expect(httpResponse.status).to.be.equal(400);
+        expect(httpResponse.body).to.be.deep.equal(loginWithOutEmailMock.message);
+    });
+
+    it('route /login return status 401 email invalido não autorizado', async () => {
+        sinon
+            .stub(Users, "findOne")
+            .resolves(dataUserMock as Users);
+        sinon.stub(JWT, "createToken").returns(tokenMock);
+        const httpResponse = await chai.request(app)
+            .post(`/login`)
+            .send(loginInvalidEmailMock.req);
+
+        expect(httpResponse.status).to.be.equal(401);
+        expect(httpResponse.body).to.be.deep.equal(loginInvalidEmailMock.message);
+    });
+
+    it('route /login return status 401 senha invalida não autorizado', async () => {
+        sinon
+            .stub(Users, "findOne")
+            .resolves(dataUserMock as Users);
+        sinon.stub(JWT, "createToken").returns(tokenMock);
+        const httpResponse = await chai.request(app)
+            .post(`/login`)
+            .send(loginInvalidPasswordMock.req);
+
+        expect(httpResponse.status).to.be.equal(401);
+        expect(httpResponse.body).to.be.deep.equal(loginInvalidPasswordMock.message);
     });
 });
