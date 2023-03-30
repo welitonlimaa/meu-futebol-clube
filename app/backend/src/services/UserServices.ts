@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcryptjs';
 import { createToken } from '../utils/JWTgenerator';
 import { ILogin } from '../interfaces/userInterfaces';
 import Users from '../database/models/UsersModel';
@@ -11,8 +12,13 @@ export default class TeamService {
       return { type: 400, message: 'All fields must be filled' };
     }
     const user = await this.userModel.findOne({ where: { email } });
-    if (!user || user.password !== password) {
-      return { type: 401, message: 'email or password invalid' };
+    if (!user) {
+      return { type: 401, message: 'email invalid' };
+    }
+    const compare = bcrypt.compareSync(password, user.password);
+
+    if (!compare) {
+      return { type: 401, message: 'password invalid' };
     }
     const token = createToken(user);
 
