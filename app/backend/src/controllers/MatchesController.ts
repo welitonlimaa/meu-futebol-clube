@@ -23,4 +23,19 @@ export default class MatcheController {
       next(error);
     }
   };
+
+  public updateStatus = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { id } = req.params;
+
+      const { type, message } = await this.matcheService.updateStatus(Number(id));
+      res.status(type).json(message);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

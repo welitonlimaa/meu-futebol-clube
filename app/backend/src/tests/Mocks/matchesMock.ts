@@ -29,4 +29,24 @@ const matchesMock = [
 	}
 ];
 
+const matchesInProgress = [
+	{
+		id: 41,
+		homeTeamId: 16,
+		homeTeamGoals: 2,
+		awayTeamId: 9,
+		awayTeamGoals: 0,
+		inProgress: true,
+		homeTeam: {
+			teamName: "São Paulo"
+		},
+		awayTeam: {
+			teamName: "Internaciona"
+		}
+	}
+];
+
+export {
+	matchesInProgress
+}
 export default matchesMock;

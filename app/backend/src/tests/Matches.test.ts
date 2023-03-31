@@ -9,7 +9,7 @@ import * as JWT from '../utils/JWTgenerator';
 
 import Matches from '../database/models/MatchesModel';
 
-import matchesMock from './Mocks/matchesMock';
+import matchesMock, { matchesInProgress } from './Mocks/matchesMock';
 
 import IMatcheTeam from '../interfaces/matcheInterfaces';
 
@@ -28,10 +28,31 @@ describe('Teste de integração Matches', () => {
 		sinon
 			.stub(Matches, "findAll")
 			.resolves();
-		// sinon.stub(JWT, "createToken").returns(tokenMock);
+
 		const httpResponse = await chai.request(app).get(`/matches`);
 
 		expect(httpResponse.status).to.be.equal(200);
 		expect(httpResponse.body).to.be.deep.equal(matchesMock);
 	});
+
+	it('route /matches return status 200 e os dados das partidas em progresso', async () => {
+		sinon
+			.stub(Matches, "findAll")
+			.resolves();
+
+		const httpResponse = await chai.request(app).get(`/matches?inProgress`);
+
+		expect(httpResponse.status).to.be.equal(200);
+		expect(httpResponse.body).to.be.deep.equal(matchesInProgress);
+	});
+
+	it('route /matches:id/finish return status 201 ao atualizar o status de uma partida', async () => {
+		sinon
+			.stub(Matches, "findAll")
+			.resolves();
+		// sinon.stub(JWT, "verifyToken").returns(tokenMock);
+		const httpResponse = await chai.request(app).patch(`/matches:id/finish`);
+
+		expect(httpResponse.status).to.be.equal(200);
+	})
 });
