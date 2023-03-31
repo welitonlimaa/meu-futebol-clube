@@ -9,14 +9,6 @@ import Users from '../database/models/UsersModel';
 
 import * as JWT from '../utils/JWTgenerator';
 
-// import usersService from '../services/usersService';
-
-// import usersController from '../controllers/usersControler';
-
-// import { Response } from 'superagent';
-
-// import ITeam from '../Interfaces/teamInterfaces';
-
 import loginReqMock, {
     tokenMock,
     dataUserMock,

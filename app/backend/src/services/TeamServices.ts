@@ -1,5 +1,3 @@
-// import ITeam from '../Interfaces/teamInterfaces';
-
 import Teams from '../database/models/TeamsModel';
 
 export default class TeamService {
