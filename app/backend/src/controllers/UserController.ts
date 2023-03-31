@@ -25,7 +25,7 @@ export default class UserController {
   ): Promise<void> => {
     try {
       const { user } = req.body;
-      const { role } = user.data;
+      const { role } = user;
       res.status(200).json({ role });
     } catch (error) {
       next(error);

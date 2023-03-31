@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { IPayload } from '../interfaces/userInterfaces';
 import { verifyToken } from '../utils/JWTgenerator';
 
 export default class verifyAuth {
@@ -13,7 +14,9 @@ export default class verifyAuth {
       if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
       const decoded = verifyToken(authorization);
-      req.body.user = decoded;
+      const { data } = decoded as IPayload;
+
+      req.body.user = data;
 
       return next();
     } catch (error) {
