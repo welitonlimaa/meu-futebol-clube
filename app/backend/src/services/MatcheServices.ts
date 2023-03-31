@@ -1,3 +1,4 @@
+import { IGoals } from '../interfaces/matcheInterfaces';
 import Teams from '../database/models/TeamsModel';
 import Matches from '../database/models/MatchesModel';
 
@@ -31,5 +32,13 @@ export default class MatcheService {
 
     await this.matcheModel.update({ inProgress: false }, { where: { id: matcheId } });
     return { type: 200, message: { message: 'Finished' } };
+  }
+
+  public async updateGoals(matcheId: number, goalsData: IGoals) {
+    const matche = await this.matcheModel.findByPk(matcheId);
+    if (!matche) return { type: 404, message: { message: 'Matche does not exist' } };
+
+    await this.matcheModel.update(goalsData, { where: { id: matcheId } });
+    return { type: 200, message: { message: 'Updated!' } };
   }
 }

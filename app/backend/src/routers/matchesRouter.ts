@@ -9,6 +9,8 @@ const controller = new MatchesController(service);
 
 matchesRoute.get('/', controller.getAll);
 
+matchesRoute.patch('/:id', verifyAuth.verifyToken, controller.updateGoals);
+
 matchesRoute.patch('/:id/finish', verifyAuth.verifyToken, controller.updateStatus);
 
 export default matchesRoute;

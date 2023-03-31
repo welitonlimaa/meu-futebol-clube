@@ -38,4 +38,20 @@ export default class MatcheController {
       next(error);
     }
   };
+
+  public updateGoals = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { id } = req.params;
+      const { body } = req;
+
+      const { type, message } = await this.matcheService.updateGoals(Number(id), body);
+      res.status(type).json(message);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -8,3 +8,8 @@ export default interface IMatcheTeam extends Matches {
     teamName: string,
   }
 }
+
+export interface IGoals {
+  homeTeamGoals: number,
+  awayTeamGoals: number
+}
