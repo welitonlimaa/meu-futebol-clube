@@ -1,4 +1,4 @@
-import { IGoals } from '../interfaces/matcheInterfaces';
+import { IGoals, IMatche } from '../interfaces/matcheInterfaces';
 import Teams from '../database/models/TeamsModel';
 import Matches from '../database/models/MatchesModel';
 
@@ -40,5 +40,14 @@ export default class MatcheService {
 
     await this.matcheModel.update(goalsData, { where: { id: matcheId } });
     return { type: 200, message: { message: 'Updated!' } };
+  }
+
+  public async createMatche(data: IMatche) {
+    const matcheData = { ...data, inProgress: true };
+    const result = await this.matcheModel.create(matcheData);
+
+    const matcheCreated = { id: result.id, ...matcheData };
+
+    return { type: 201, message: matcheCreated };
   }
 }

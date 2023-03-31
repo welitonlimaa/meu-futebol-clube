@@ -46,7 +46,7 @@ describe('Teste de integração Matches', () => {
 		expect(httpResponse.body).to.be.deep.equal(matchesInProgress);
 	});
 
-	it('route /matches:id/finish return status 201 ao atualizar o status de uma partida', async () => {
+	it('route /matches:id/finish return status 200 ao atualizar o status de uma partida', async () => {
 		sinon
 			.stub(Matches, "findAll")
 			.resolves();
@@ -54,5 +54,25 @@ describe('Teste de integração Matches', () => {
 		const httpResponse = await chai.request(app).patch(`/matches:id/finish`);
 
 		expect(httpResponse.status).to.be.equal(200);
+	})
+
+	it('route /matches:id/finish return status 200 ao atualizar o numero de gols de uma partida', async () => {
+		sinon
+			.stub(Matches, "findAll")
+			.resolves();
+		// sinon.stub(JWT, "verifyToken").returns(tokenMock);
+		const httpResponse = await chai.request(app).patch(`/matches:id`);
+
+		expect(httpResponse.status).to.be.equal(200);
+	})
+
+	it('route /matches return status 201 ao criar uma nova partida', async () => {
+		sinon
+			.stub(Matches, "findAll")
+			.resolves();
+		// sinon.stub(JWT, "verifyToken").returns(tokenMock);
+		const httpResponse = await chai.request(app).post(`/matches`);
+
+		expect(httpResponse.status).to.be.equal(201);
 	})
 });

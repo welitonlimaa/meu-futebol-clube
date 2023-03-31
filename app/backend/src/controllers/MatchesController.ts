@@ -54,4 +54,22 @@ export default class MatcheController {
       next(error);
     }
   };
+
+  public createMatche = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { body } = req;
+
+      delete body.user;
+
+      const { type, message } = await this.matcheService.createMatche(body);
+
+      res.status(type).json(message);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

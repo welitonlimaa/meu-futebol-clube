@@ -13,4 +13,6 @@ matchesRoute.patch('/:id', verifyAuth.verifyToken, controller.updateGoals);
 
 matchesRoute.patch('/:id/finish', verifyAuth.verifyToken, controller.updateStatus);
 
+matchesRoute.post('/', verifyAuth.verifyToken, controller.createMatche);
+
 export default matchesRoute;
