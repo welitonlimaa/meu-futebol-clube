@@ -13,4 +13,15 @@ export default class MatcheService {
     });
     return { type: null, message: result };
   }
+
+  public async getAllByStatus(status: boolean) {
+    const result = await this.matcheModel.findAll({
+      where: { inProgress: status },
+      include: [
+        { model: Teams, as: 'homeTeam' },
+        { model: Teams, as: 'awayTeam' },
+      ],
+    });
+    return { type: null, message: result };
+  }
 }
