@@ -14,7 +14,9 @@ export interface IGoals {
   awayTeamGoals: number
 }
 
-export interface IMatche extends IGoals {
+export interface IMatche {
+  homeTeam: string,
+  awayTeam: string,
   homeTeamId: number,
   awayTeamId: number,
 }
