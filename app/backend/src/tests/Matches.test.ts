@@ -25,27 +25,27 @@ describe('Teste de integração Matches', () => {
 		sinon.restore();
 	})
 
-	// it('route /matches return status 200 e os dados das partidas', async () => {
-	// 	sinon
-	// 		.stub(Matches, "findAll")
-	// 		.resolves();
+	it('route /matches return status 200 e os dados das partidas', async () => {
+		sinon
+			.stub(Matches, "findAll")
+			.resolves(matchesMock as unknown as IMatcheTeam[]);
 
-	// 	const httpResponse = await chai.request(app).get(`/matches`);
+		const httpResponse = await chai.request(app).get(`/matches`);
 
-	// 	expect(httpResponse.status).to.be.equal(200);
-	// 	expect(httpResponse.body).to.be.deep.equal(matchesMock);
-	// });
+		expect(httpResponse.status).to.be.equal(200);
+		expect(httpResponse.body).to.be.deep.equal(matchesMock);
+	});
 
-	// it('route /matches return status 200 e os dados das partidas em progresso', async () => {
-	// 	sinon
-	// 		.stub(Matches, "findAll")
-	// 		.resolves();
+	it('route /matches return status 200 e os dados das partidas em progresso', async () => {
+		sinon
+			.stub(Matches, "findAll")
+			.resolves(matchesInProgress as unknown as IMatcheTeam[]);
 
-	// 	const httpResponse = await chai.request(app).get(`/matches?inProgress`);
+		const httpResponse = await chai.request(app).get(`/matches?inProgress=true`);
 
-	// 	expect(httpResponse.status).to.be.equal(200);
-	// 	expect(httpResponse.body).to.be.deep.equal(matchesInProgress);
-	// });
+		expect(httpResponse.status).to.be.equal(200);
+		expect(httpResponse.body).to.be.deep.equal(matchesInProgress);
+	});
 
 	it('route /matches:id/finish return status 200 ao atualizar o status de uma partida', async () => {
 		sinon

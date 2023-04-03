@@ -20,3 +20,9 @@ export interface IMatche {
   homeTeamId: number,
   awayTeamId: number,
 }
+
+export interface IMatcheWithGoals extends IMatche {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+  inProgress: boolean
+}
