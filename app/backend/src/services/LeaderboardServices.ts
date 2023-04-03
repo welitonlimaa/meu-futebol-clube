@@ -10,13 +10,13 @@ export default class LeaderboardService {
 
   public async getLeaderboardHome() {
     const teams = await this.teamModel.findAll();
-    const matches = await this.matcheModel.findAll();
+    const matches = await this.matcheModel.findAll({ where: { inProgress: false } });
 
     const leaderboardHomeTeams = teams.reduce((acc: ITeamBoard[], curr: ITeam) => {
       const teamMatches = matches
-        .filter((matche: IMatcheWithGoals) => matche.homeTeamId === curr.id);
+        .filter((matche) => matche.homeTeamId === curr.id);
 
-      const result = BoardCalculate.result(teamMatches);
+      const result = BoardCalculate.result(teamMatches as unknown as IMatcheWithGoals[]);
 
       acc.push({ name: curr.teamName, ...result });
       return acc;
