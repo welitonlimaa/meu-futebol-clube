@@ -5,8 +5,8 @@ export default interface ITeamBoard {
   totalVictories: number,
   totalDraws: number,
   totalLosses: number,
-  //   goalsBalance: number
+  goalsBalance: number
   goalsFavor: number,
   goalsOwn: number,
-//   efficiency: number
+  efficiency: string
 }

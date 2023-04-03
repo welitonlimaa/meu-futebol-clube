@@ -36,15 +36,16 @@ export default class BoardCalculate {
   public static totalLosses(teamMatches: IMatcheWithGoals[]): number {
     const totalLosses = teamMatches.reduce((acc: number, curr: IMatcheWithGoals) => {
       let losses = 0;
-      if (curr.homeTeamGoals === curr.awayTeamGoals) losses = 1;
+      if (curr.awayTeamGoals > curr.homeTeamGoals) losses = 1;
       return acc + losses;
     }, 0);
     return totalLosses;
   }
 
-  public static goalsFavor(teamMatches: IMatcheWithGoals[]): number {
+  public static goalsFavor(teamMatches: IMatcheWithGoals[]) {
     const goalsFavor = teamMatches
       .reduce((acc: number, curr: IMatcheWithGoals) => acc + curr.homeTeamGoals, 0);
+
     return goalsFavor;
   }
 
@@ -52,6 +53,15 @@ export default class BoardCalculate {
     const goalsOwn = teamMatches
       .reduce((acc: number, curr: IMatcheWithGoals) => acc + curr.awayTeamGoals, 0);
     return goalsOwn;
+  }
+
+  public static goalsBalance(goalsFavor: number, goalsOwn: number): number {
+    return goalsFavor - goalsOwn;
+  }
+
+  public static efficiency(P: number, J: number): string {
+    const effic = ((P / (J * 3)) * 100).toFixed(2);
+    return effic;
   }
 
   public static result(teamMatches: IMatcheWithGoals[]) {
@@ -63,6 +73,8 @@ export default class BoardCalculate {
       totalLosses: this.totalLosses(teamMatches),
       goalsFavor: this.goalsFavor(teamMatches),
       goalsOwn: this.goalsOwn(teamMatches),
+      goalsBalance: this.goalsBalance(this.goalsFavor(teamMatches), this.goalsOwn(teamMatches)),
+      efficiency: this.efficiency(this.totalPoints(teamMatches), this.totalGames(teamMatches)),
     };
   }
 }

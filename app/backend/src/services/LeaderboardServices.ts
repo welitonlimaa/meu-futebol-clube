@@ -1,3 +1,4 @@
+import OrderBoard from '../utils/OrderBoard';
 import ITeamBoard from '../interfaces/leaderboardInterfaces';
 import ITeam from '../interfaces/teamInterfaces';
 import Matches from '../database/models/MatchesModel';
@@ -22,6 +23,8 @@ export default class LeaderboardService {
       return acc;
     }, []);
 
-    return { type: null, message: leaderboardHomeTeams };
+    const leaderBoardOrder = OrderBoard.orderData(leaderboardHomeTeams);
+
+    return { type: null, message: leaderBoardOrder };
   }
 }
