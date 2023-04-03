@@ -58,8 +58,6 @@ export default class MatcheService {
     const matcheData = { ...data, inProgress: true };
     const result = await this.matcheModel.create(matcheData);
 
-    const matcheCreated = { id: result.id, ...matcheData };
-
-    return { type: 201, message: matcheCreated };
+    return { type: 201, message: result };
   }
 }

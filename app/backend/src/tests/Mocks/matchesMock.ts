@@ -46,7 +46,32 @@ const matchesInProgress = [
 	}
 ];
 
+
+const createMatche = {
+	req: {
+		body: {
+
+			homeTeamId: 16,
+			awayTeamId: 8,
+			homeTeamGoals: 2,
+			awayTeamGoals: 2
+
+		}
+	},
+	res: {
+		body: {
+			id: 49,
+			homeTeamId: 16,
+			awayTeamId: 8,
+			homeTeamGoals: 2,
+			awayTeamGoals: 2,
+			inProgress: true
+		}
+	}
+}
+
 export {
-	matchesInProgress
+	matchesInProgress,
+	createMatche
 }
 export default matchesMock;

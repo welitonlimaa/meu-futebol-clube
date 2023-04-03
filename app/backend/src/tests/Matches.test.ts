@@ -9,7 +9,7 @@ import * as JWT from '../utils/JWTgenerator';
 
 import Matches from '../database/models/MatchesModel';
 
-import matchesMock, { matchesInProgress } from './Mocks/matchesMock';
+import matchesMock, { matchesInProgress, createMatche } from './Mocks/matchesMock';
 
 import IMatcheTeam from '../interfaces/matcheInterfaces';
 
@@ -54,7 +54,7 @@ describe('Teste de integração Matches', () => {
 		const httpResponse = await chai.request(app).patch(`/matches:id/finish`);
 
 		expect(httpResponse.status).to.be.equal(200);
-	})
+	});
 
 	it('route /matches:id/finish return status 200 ao atualizar o numero de gols de uma partida', async () => {
 		sinon
@@ -64,15 +64,18 @@ describe('Teste de integração Matches', () => {
 		const httpResponse = await chai.request(app).patch(`/matches:id`);
 
 		expect(httpResponse.status).to.be.equal(200);
-	})
+	});
 
 	it('route /matches return status 201 ao criar uma nova partida', async () => {
+		const { res: { body } } = createMatche;
 		sinon
-			.stub(Matches, "findAll")
-			.resolves();
+			.stub(Matches, "create")
+			.resolves(body as Matches);
 		// sinon.stub(JWT, "verifyToken").returns(tokenMock);
-		const httpResponse = await chai.request(app).post(`/matches`);
+		const httpResponse = await chai.request(app)
+			.post(`/matches`)
+			.send(createMatche.req);
 
 		expect(httpResponse.status).to.be.equal(201);
-	})
+	});
 });
