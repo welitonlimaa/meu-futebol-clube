@@ -46,9 +46,13 @@ const matchesInProgress = [
 	}
 ];
 
+const tokenMock = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJwYXNzd29yZCI6IiQyYSQwOCR4aS5IeGsxY3pBTzBuWlIuLkIzOTN1MTBhRUQwUlExTjNQQUVYUTdIeHRMaktQRVpCdS5QVyJ9LCJpYXQiOjE2ODA1NDEwMjMsImV4cCI6MTY4MDYyNzQyM30.576rU9-aPEHfNqZnkStpieiuDhCQpWdgoIQaEvaYTw8";
 
 const createMatche = {
 	req: {
+		headers: {
+			authorization: tokenMock
+		},
 		body: {
 
 			homeTeamId: 16,
@@ -68,10 +72,21 @@ const createMatche = {
 			inProgress: true
 		}
 	}
-}
+};
+
+const dataUserByToken = {
+	data: {
+		id: 49,
+		username: 'Admin',
+		role: 'admin',
+		email: 'admin@admin.com',
+		password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
+	}
+};
 
 export {
 	matchesInProgress,
-	createMatche
+	createMatche,
+	dataUserByToken
 }
 export default matchesMock;
