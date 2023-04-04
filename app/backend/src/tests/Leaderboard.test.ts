@@ -8,7 +8,7 @@ import { app } from '../app';
 import Teams from '../database/models/TeamsModel';
 
 import Matches from '../database/models/MatchesModel';
-import homeTeamsBoardMock, { matchesMock, teamsMock } from './Mocks/leaderboardMock';
+import homeTeamsBoardMock, { awayTeamsBoardMock, mainTeamsBoard, matchesMock, teamsMock } from './Mocks/leaderboardMock';
 import IMatcheTeam from '../interfaces/matcheInterfaces';
 
 chai.use(chaiHttp);
@@ -34,5 +34,37 @@ describe('Teste de integração Leaderboard', () => {
 
         expect(httpResponse.status).to.be.equal(200);
         expect(httpResponse.body).to.be.deep.equal(homeTeamsBoardMock);
+    });
+
+    it('route /leaderboard/away retorna status 200 com o desempenho dos times', async () => {
+        sinon
+            .stub(Teams, "findAll")
+            .resolves(teamsMock as Teams[]);
+
+        sinon
+            .stub(Matches, "findAll")
+            .resolves(matchesMock as unknown as IMatcheTeam[]);
+
+
+        const httpResponse = await chai.request(app).get(`/leaderboard/away`);
+
+        expect(httpResponse.status).to.be.equal(200);
+        expect(httpResponse.body).to.be.deep.equal(awayTeamsBoardMock);
+    });
+
+    it('route /leaderboard retorna status 200 com o desempenho geral dos times', async () => {
+        sinon
+            .stub(Teams, "findAll")
+            .resolves(teamsMock as Teams[]);
+
+        sinon
+            .stub(Matches, "findAll")
+            .resolves(matchesMock as unknown as IMatcheTeam[]);
+
+
+        const httpResponse = await chai.request(app).get(`/leaderboard`);
+
+        expect(httpResponse.status).to.be.equal(200);
+        expect(httpResponse.body).to.be.deep.equal(mainTeamsBoard);
     });
 });
