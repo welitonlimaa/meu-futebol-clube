@@ -1,6 +1,6 @@
 import { IMatcheWithGoals } from '../interfaces/matcheInterfaces';
 
-export default class BoardCalculate {
+export default class BoardHomeCalculate {
   public static totalPoints(teamMatches: IMatcheWithGoals[]): number {
     const totalPoints = teamMatches.reduce((acc: number, curr: IMatcheWithGoals) => {
       let points = 0;
