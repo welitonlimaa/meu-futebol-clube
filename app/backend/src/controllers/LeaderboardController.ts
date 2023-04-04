@@ -29,4 +29,17 @@ export default class LeaderboardController {
       next(error);
     }
   };
+
+  public getLeaderboardAllTeams = async (
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { message } = await this.leaderboardService.getLeaderboardAllTeams();
+      res.status(200).json(message);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

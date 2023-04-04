@@ -1,5 +1,5 @@
 export default interface ITeamBoard {
-  name: string,
+  name?: string,
   totalPoints: number,
   totalGames: number,
   totalVictories: number,

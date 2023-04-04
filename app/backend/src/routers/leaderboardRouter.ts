@@ -8,6 +8,8 @@ const leaderboardRoute = Router();
 const service = new LeaderboardService();
 const controller = new LeaderboardController(service);
 
+leaderboardRoute.get('/', controller.getLeaderboardAllTeams);
+
 leaderboardRoute.get('/home', controller.getLeaderboardHome);
 
 leaderboardRoute.get('/away', controller.getLeaderboardAway);
