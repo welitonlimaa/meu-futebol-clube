@@ -22,7 +22,9 @@ export default class TeamService {
       return { type: 401, message: { message: invalid } };
     }
 
-    const token = createToken(user);
+    const { password: _, ...args } = user.dataValues;
+
+    const token = createToken(args);
 
     return { type: 200, message: { token } };
   }
