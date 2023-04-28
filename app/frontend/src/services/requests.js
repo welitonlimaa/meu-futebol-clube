@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://mfc-service.up.railway.app",
+  baseURL: "https://mfc-service.up.railway.app/",
 });
 
 export const setToken = (token) => {
