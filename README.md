@@ -1,5 +1,5 @@
 # Meu Futebol Clube
-Este é um projeto para desenvolver uma aplicação web que permite a gestão de partidas de futebol. O objetivo é fornecer uma plataforma onde pessoas possam criar, atualizar e acompanhar estatísticas das partidas de futebol.
+É um projeto de uma aplicação web que permite a gestão de partidas de futebol. O objetivo é fornecer uma plataforma onde pessoas possam criar, atualizar e acompanhar estatísticas das partidas de futebol.
 
 ## Funcionalidades
 * Cadastro de partidas de futebol
@@ -10,6 +10,7 @@ Este é um projeto para desenvolver uma aplicação web que permite a gestão de
 
 ## Tecnologias utilizadas
 * TypeScript
+* POO (Programação Orientada a Objetos)
 * React
 * PostgreSQL
 * Sequelize
